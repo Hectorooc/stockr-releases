@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stockr · company analysis from SEC filings</title>
+<meta name="description" content="Stockr is a Windows app that turns every SEC filing of a US company into clean statements, ratios, credit scores, valuation and comparisons.">
+<link rel="icon" href="img/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --azul: #12263F; --acero: #2C6E8F; --ambar: #E0A03C; --hueso: #F6F4F0; --tinta: #1A1A1A; --gris: #6B7683;
+    --borde: #E4E0D8; --azul-2: #17304E; --texto-osc: #DCE4EE; --texto-osc-2: #A8B2BE;
+    --rojo: #FFCDC5; --amarillo: #F4DBA9; --verde: #B5EDD0;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { animation: none !important; transition: none !important; } }
+  body { margin: 0; font-family: Lato, "Segoe UI", sans-serif; color: var(--tinta); background: var(--hueso); font-size: 17px; line-height: 1.6; }
+  a { color: var(--acero); }
+  a:focus-visible, button:focus-visible, summary:focus-visible { outline: 3px solid var(--ambar); outline-offset: 3px; border-radius: 4px; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  [data-l="es"] { display: none; }
+  html[lang="es"] [data-l="en"] { display: none; }
+  html[lang="es"] [data-l="es"] { display: revert; }
+
+  /* top */
+  header.top { background: var(--azul); color: var(--texto-osc); }
+  nav { display: flex; align-items: center; gap: 28px; padding: 18px 0; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 900; letter-spacing: .12em; color: #fff; text-decoration: none; font-size: 18px; }
+  .brand img { width: 28px; height: 28px; }
+  nav .links { display: flex; gap: 22px; margin-left: auto; align-items: center; }
+  nav .links a { color: var(--texto-osc); text-decoration: none; font-size: 15px; }
+  nav .links a:hover { color: #fff; text-decoration: underline; }
+  .lang { background: transparent; border: 1px solid #3B5675; color: var(--texto-osc); border-radius: 6px; padding: 4px 10px; font: inherit; font-size: 14px; cursor: pointer; }
+
+  .hero { padding: 56px 0 0; display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: end; }
+  .hero h1 { font-size: clamp(36px, 5vw, 58px); line-height: 1.05; font-weight: 900; color: #fff; margin: 0 0 20px; letter-spacing: -0.01em; }
+  .hero p.lede { color: var(--texto-osc); font-size: 19px; max-width: 34em; margin: 0 0 28px; }
+  .cta { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; margin-bottom: 14px; }
+  .btn { display: inline-block; padding: 13px 22px; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 16px; }
+  .btn.primary { background: var(--ambar); color: var(--azul); }
+  .btn.primary:hover { background: #EAB25C; }
+  .btn.ghost { color: #fff; border: 1px solid #3B5675; }
+  .btn.ghost:hover { border-color: var(--texto-osc); }
+  .fine { color: var(--texto-osc-2); font-size: 14px; margin: 0 0 40px; }
+
+  /* the ledger: one Stockr ratio row, the app's signature view */
+  .ledger { background: #fff; border-radius: 10px 10px 0 0; padding: 18px 20px 22px; box-shadow: 0 -1px 0 #2C4A6E; color: var(--tinta); }
+  .ledger .cap { display: flex; justify-content: space-between; font-size: 13px; color: var(--gris); margin-bottom: 10px; }
+  .ledger table { width: 100%; border-collapse: collapse; font-family: "JetBrains Mono", Consolas, monospace; font-size: 14px; }
+  .ledger th { font-family: Lato, sans-serif; font-weight: 700; font-size: 12px; color: var(--azul); text-align: right; padding: 6px 8px; background: #EDEAE4; }
+  .ledger th:first-child, .ledger td:first-child { text-align: left; font-family: Lato, sans-serif; font-size: 14px; }
+  .ledger td { padding: 9px 8px; text-align: right; border-bottom: 1px solid var(--borde); }
+  .ledger td.t { font-family: Lato, sans-serif; text-align: left; white-space: nowrap; }
+  .up { color: #2E7D5B; } .down { color: #B84A42; }
+  .ledger tr td.h { transition: background-color .6s ease; }
+  .ledger .note { font-family: Lato, sans-serif; font-size: 12.5px; color: var(--gris); margin-top: 10px; }
+
+  section { padding: 84px 0; }
+  h2 { font-size: clamp(28px, 3.4vw, 38px); line-height: 1.15; font-weight: 900; color: var(--azul); margin: 0 0 14px; }
+  .intro { max-width: 40em; color: #3A4250; margin: 0 0 48px; }
+
+  /* features: alternating text + screenshot rows */
+  .feature { display: grid; grid-template-columns: 0.9fr 1.3fr; gap: 44px; align-items: center; padding: 34px 0; border-top: 1px solid var(--borde); }
+  .feature:nth-child(even) { grid-template-columns: 1.3fr 0.9fr; }
+  .feature:nth-child(even) .txt { order: 2; }
+  .feature h3 { font-size: 23px; color: var(--azul); margin: 0 0 10px; }
+  .feature p { margin: 0 0 10px; color: #3A4250; max-width: 32em; }
+  .feature ul { margin: 6px 0 0; padding-left: 18px; color: #3A4250; }
+  .feature li { margin: 4px 0; }
+  .shot { width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--borde); box-shadow: 0 18px 40px -24px rgba(18, 38, 63, .45); display: block; background: #fff; }
+
+  /* pricing */
+  .pricing { background: #fff; border-top: 1px solid var(--borde); border-bottom: 1px solid var(--borde); }
+  .plans { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--borde); border-radius: 10px; overflow: hidden; }
+  .plan { padding: 32px; }
+  .plan + .plan { border-left: 1px solid var(--borde); background: var(--azul); color: var(--texto-osc); }
+  .plan h3 { margin: 0; font-size: 22px; }
+  .plan + .plan h3 { color: #fff; }
+  .price { font-size: 40px; font-weight: 900; margin: 8px 0 2px; color: var(--azul); }
+  .plan + .plan .price { color: #fff; }
+  .plan .per { font-size: 14px; color: var(--gris); }
+  .plan + .plan .per { color: var(--texto-osc-2); }
+  .plan ul { padding-left: 18px; margin: 18px 0 24px; }
+  .plan li { margin: 6px 0; }
+  .plan .btn.primary { margin-top: 4px; }
+  .plan .btn.outline { border: 1px solid var(--azul); color: var(--azul); }
+
+  /* faq */
+  details { border-top: 1px solid var(--borde); padding: 16px 0; max-width: 820px; }
+  details:last-of-type { border-bottom: 1px solid var(--borde); }
+  summary { cursor: pointer; font-weight: 700; color: var(--azul); font-size: 18px; list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  summary::before { content: "+"; display: inline-block; width: 22px; color: var(--ambar); font-weight: 900; }
+  details[open] summary::before { content: "−"; }
+  details p { margin: 10px 0 0 22px; color: #3A4250; max-width: 42em; }
+
+  footer { background: var(--azul); color: var(--texto-osc-2); padding: 40px 0; font-size: 14px; }
+  footer .row { display: flex; gap: 24px; flex-wrap: wrap; align-items: center; }
+  footer a { color: var(--texto-osc); }
+  footer .legal { margin-left: auto; display: flex; gap: 18px; }
+
+  @media (max-width: 860px) {
+    nav .links a.hide-sm { display: none; }
+    .hero { grid-template-columns: 1fr; gap: 28px; padding-top: 32px; }
+    .feature, .feature:nth-child(even) { grid-template-columns: 1fr; gap: 20px; }
+    .feature:nth-child(even) .txt { order: 0; }
+    .plans { grid-template-columns: 1fr; }
+    .plan + .plan { border-left: 0; border-top: 1px solid var(--borde); }
+    section { padding: 56px 0; }
+    .ledger table { font-size: 12.5px; }
+    .ledger .hide-sm { display: none; }
+    footer .legal { margin-left: 0; }
+  }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <nav aria-label="Main">
+      <a class="brand" href="#"><img src="img/icon.png" alt="">STOCKR</a>
+      <div class="links">
+        <a class="hide-sm" href="#features"><span data-l="en">Features</span><span data-l="es">Funciones</span></a>
+        <a class="hide-sm" href="#pricing"><span data-l="en">Pricing</span><span data-l="es">Precios</span></a>
+        <a class="hide-sm" href="#faq"><span data-l="en">Questions</span><span data-l="es">Preguntas</span></a>
+        <button class="lang" id="lang" type="button" aria-label="Cambiar a español / Switch to English">ES</button>
+      </div>
+    </nav>
+    <div class="hero">
+      <div>
+        <h1>
+          <span data-l="en">Every SEC filing, read for you.</span>
+          <span data-l="es">Cada reporte a la SEC, leído por usted.</span>
+        </h1>
+        <p class="lede">
+          <span data-l="en">Type a ticker. Stockr pulls the company's filings from SEC EDGAR, consolidates ten years of statements, and shows the ratios, credit scores and valuation an analyst would build by hand.</span>
+          <span data-l="es">Escriba un ticker. Stockr baja los reportes de la empresa desde SEC EDGAR, consolida diez años de estados financieros y muestra las razones, puntajes de crédito y valoración que un analista armaría a mano.</span>
+        </p>
+        <div class="cta">
+          <a class="btn primary" href="https://github.com/Hectorooc/stockr-releases/releases/latest">
+            <span data-l="en">Download for Windows</span><span data-l="es">Descargar para Windows</span>
+          </a>
+          <a class="btn ghost" href="#features"><span data-l="en">See what it does</span><span data-l="es">Ver qué hace</span></a>
+        </div>
+        <p class="fine">
+          <span data-l="en">Free 14-day trial with every feature. Windows 10 and 11. English and Spanish.</span>
+          <span data-l="es">Prueba gratis de 14 días con todas las funciones. Windows 10 y 11. Inglés y español.</span>
+        </p>
+      </div>
+      <div class="ledger" aria-label="Example of a Stockr ratio history">
+        <div class="cap">
+          <span data-l="en">Ratios · each row colored against its own history</span>
+          <span data-l="es">Razones · cada fila coloreada contra su propio historial</span>
+          <span>USD</span>
+        </div>
+        <table>
+          <thead><tr>
+            <th scope="col"><span data-l="en">Ratio</span><span data-l="es">Razón</span></th>
+            <th scope="col"><span data-l="en">Trend</span><span data-l="es">Tendencia</span></th>
+            <th scope="col">2024</th><th scope="col">2023</th><th scope="col">2022</th><th scope="col" class="hide-sm">2021</th>
+          </tr></thead>
+          <tbody>
+            <tr><td><span data-l="en">Operating margin</span><span data-l="es">Margen operativo</span></td>
+              <td class="t up">▲ <span data-l="en">better</span><span data-l="es">mejor</span></td>
+              <td class="h" data-c="g">16.4%</td><td class="h" data-c="y">15.6%</td><td class="h" data-c="y">15.2%</td><td class="h hide-sm" data-c="r">14.8%</td></tr>
+            <tr><td><span data-l="en">Net debt to EBITDA</span><span data-l="es">Deuda neta a EBITDA</span></td>
+              <td class="t up">▼ <span data-l="en">better</span><span data-l="es">mejor</span></td>
+              <td class="h" data-c="g">0.65x</td><td class="h" data-c="g">0.76x</td><td class="h" data-c="y">0.88x</td><td class="h hide-sm" data-c="r">1.02x</td></tr>
+            <tr><td><span data-l="en">Revenue growth</span><span data-l="es">Crecimiento de ingresos</span></td>
+              <td class="t down">▼ <span data-l="en">worse</span><span data-l="es">peor</span></td>
+              <td class="h" data-c="r">5.2%</td><td class="h" data-c="y">5.5%</td><td class="h" data-c="y">5.8%</td><td class="h hide-sm" data-c="g">6.1%</td></tr>
+            <tr><td>Altman Z''</td>
+              <td class="t up">▲ <span data-l="en">safe</span><span data-l="es">segura</span></td>
+              <td class="h" data-c="g">3.55</td><td class="h" data-c="g">3.44</td><td class="h" data-c="y">3.33</td><td class="h hide-sm" data-c="y">3.21</td></tr>
+          </tbody>
+        </table>
+        <div class="note">
+          <span data-l="en">Hover any number in the app to see the XBRL tag it came from.</span>
+          <span data-l="es">En la aplicación, pase el cursor sobre un número para ver la etiqueta XBRL de origen.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="features">
+    <div class="wrap">
+      <h2><span data-l="en">What you get from one ticker</span><span data-l="es">Lo que obtiene con un ticker</span></h2>
+      <p class="intro">
+        <span data-l="en">Stockr works from the XBRL data companies file with the SEC, so the numbers are the company's own, in full dollars, with every source traceable to the filing.</span>
+        <span data-l="es">Stockr trabaja con los datos XBRL que las empresas presentan a la SEC: las cifras son las de la empresa, en dólares completos, y cada fuente se puede rastrear hasta el documento.</span>
+      </p>
+
+      <div class="feature">
+        <div class="txt">
+          <h3><span data-l="en">Statements and 60 ratios, consolidated</span><span data-l="es">Estados financieros y 60 razones, consolidados</span></h3>
+          <p><span data-l="en">Income statement, balance sheet and cash flow for up to 25 years, annual or quarterly, with restatements or as first reported. Ratios show their trend and are colored against their own history.</span>
+             <span data-l="es">Estado de resultados, balance general y flujo de efectivo hasta 25 años, anual o trimestral, con reexpresiones o como se reportó originalmente. Las razones muestran su tendencia y se colorean contra su propio historial.</span></p>
+          <ul>
+            <li><span data-l="en">Data checks: the balance sheet balances, cash flows add up</span><span data-l="es">Revisiones de datos: el balance cuadra, los flujos suman</span></li>
+            <li><span data-l="en">Build your own ratios with a formula</span><span data-l="es">Cree sus propias razones con una fórmula</span></li>
+            <li><span data-l="en">Export everything to Excel</span><span data-l="es">Exporte todo a Excel</span></li>
+          </ul>
+        </div>
+        <img class="shot" src="img/ratios.webp" width="1500" height="900" alt="Stockr ratios table with trend and colored history">
+      </div>
+
+      <div class="feature">
+        <div class="txt">
+          <h3><span data-l="en">Credit analysis and a PDF memo</span><span data-l="es">Análisis de crédito y memo en PDF</span></h3>
+          <p><span data-l="en">Altman Z'', Piotroski F, Beneish M and a synthetic rating from interest coverage, each with its history and the signals behind it, plus debt maturities. Banks get a bank credit profile instead.</span>
+             <span data-l="es">Altman Z'', Piotroski F, Beneish M y una calificación sintética según la cobertura de intereses, cada uno con su historial y las señales que lo explican, además de los vencimientos de deuda. Los bancos reciben un perfil de crédito bancario.</span></p>
+          <p><span data-l="en">One click writes a two-page credit memo with charts and your notes.</span><span data-l="es">Con un clic escribe un memo de crédito de dos páginas con gráficas y sus notas.</span></p>
+        </div>
+        <img class="shot" src="img/credit.webp" width="1500" height="900" alt="Stockr credit tab with Altman, Piotroski, Beneish and rating cards">
+      </div>
+
+      <div class="feature">
+        <div class="txt">
+          <h3><span data-l="en">Valuation and a DCF you can change</span><span data-l="es">Valoración y un DCF que puede ajustar</span></h3>
+          <p><span data-l="en">With a free key from Financial Modeling Prep, Alpha Vantage or Tiingo, Stockr adds market cap, P/E, EV/EBITDA and yields over time. The DCF starts from the filings, shows a sensitivity table against today's price, and exports to Excel with live formulas.</span>
+             <span data-l="es">Con una llave gratuita de Financial Modeling Prep, Alpha Vantage o Tiingo, Stockr agrega capitalización, P/U, VE/EBITDA y rendimientos en el tiempo. El DCF parte de las cifras reportadas, muestra una tabla de sensibilidad contra el precio actual y se exporta a Excel con fórmulas vivas.</span></p>
+        </div>
+        <img class="shot" src="img/dcf.webp" width="1500" height="900" alt="Stockr discounted cash flow with sensitivity table">
+      </div>
+
+      <div class="feature">
+        <div class="txt">
+          <h3><span data-l="en">Industry, peers and a screener</span><span data-l="es">Industria, pares y filtro de empresas</span></h3>
+          <p><span data-l="en">See where a company ranks in its industry on margins, returns and leverage, compare it with its closest peers in one click, or screen every US company on the measures you choose.</span>
+             <span data-l="es">Vea dónde se ubica una empresa en su industria en márgenes, rentabilidad y apalancamiento, compárela con sus pares más cercanos con un clic, o filtre todas las empresas de EE. UU. con las medidas que elija.</span></p>
+        </div>
+        <img class="shot" src="img/industry.webp" width="1500" height="900" alt="Stockr industry percentiles and peer list">
+      </div>
+
+      <div class="feature">
+        <div class="txt">
+          <h3><span data-l="en">What changed, insiders and AI summaries</span><span data-l="es">Qué cambió, directivos y resúmenes con IA</span></h3>
+          <p><span data-l="en">The biggest ratio moves of the year, insider buying and selling from Form 4, alerts when a watchlist company files, and an AI summary of the annual report's risks and management discussion with your own Claude key.</span>
+             <span data-l="es">Los mayores movimientos de razones del año, compras y ventas de directivos (Form 4), alertas cuando una empresa favorita presenta un reporte, y un resumen con IA de los riesgos y el análisis de la administración del reporte anual, con su propia llave de Claude.</span></p>
+        </div>
+        <img class="shot" src="img/insights.webp" width="1500" height="900" alt="Stockr insights tab with what changed and insider trades">
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" class="pricing">
+    <div class="wrap">
+      <h2><span data-l="en">Pricing</span><span data-l="es">Precios</span></h2>
+      <p class="intro">
+        <span data-l="en">Every download starts with 14 days of Pro. After that, Stockr keeps working as the free version until you add a license key.</span>
+        <span data-l="es">Cada descarga empieza con 14 días de Pro. Después, Stockr sigue funcionando como versión gratuita hasta que agregue una llave de licencia.</span>
+      </p>
+      <div class="plans">
+        <div class="plan">
+          <h3><span data-l="en">Free</span><span data-l="es">Gratis</span></h3>
+          <div class="price">$0</div>
+          <div class="per"><span data-l="en">after the trial</span><span data-l="es">después de la prueba</span></div>
+          <ul>
+            <li><span data-l="en">Statements, ratios and charts</span><span data-l="es">Estados financieros, razones y gráficas</span></li>
+            <li><span data-l="en">Credit scores and valuation</span><span data-l="es">Puntajes de crédito y valoración</span></li>
+            <li><span data-l="en">Comparisons and industry ranking</span><span data-l="es">Comparaciones y ranking en la industria</span></li>
+            <li><span data-l="en">Up to 3 watchlist companies</span><span data-l="es">Hasta 3 empresas favoritas</span></li>
+          </ul>
+          <a class="btn outline" href="https://github.com/Hectorooc/stockr-releases/releases/latest"><span data-l="en">Download</span><span data-l="es">Descargar</span></a>
+        </div>
+        <div class="plan">
+          <h3>Pro</h3>
+          <!-- TODO: set the real price and the store link -->
+          <div class="price">$—</div>
+          <div class="per"><span data-l="en">per year · price coming soon</span><span data-l="es">por año · precio próximamente</span></div>
+          <ul>
+            <li><span data-l="en">Everything in Free</span><span data-l="es">Todo lo de Gratis</span></li>
+            <li><span data-l="en">Excel and PDF exports, DCF workbook</span><span data-l="es">Exportación a Excel y PDF, libro del DCF</span></li>
+            <li><span data-l="en">Screener across every US company</span><span data-l="es">Filtro de todas las empresas de EE. UU.</span></li>
+            <li><span data-l="en">AI summaries of annual reports</span><span data-l="es">Resúmenes de reportes anuales con IA</span></li>
+            <li><span data-l="en">Unlimited watchlist and filing alerts</span><span data-l="es">Favoritas ilimitadas y alertas de reportes</span></li>
+          </ul>
+          <a class="btn primary" href="mailto:support@example.com?subject=Stockr%20Pro"><span data-l="en">Get Stockr Pro</span><span data-l="es">Obtener Stockr Pro</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <h2><span data-l="en">Questions</span><span data-l="es">Preguntas</span></h2>
+      <details>
+        <summary><span data-l="en">Where does the data come from?</span><span data-l="es">¿De dónde vienen los datos?</span></summary>
+        <p><span data-l="en">From SEC EDGAR: the filing history and the XBRL financial data every US-listed company files. It's free and official. Stockr downloads it directly to your computer.</span>
+           <span data-l="es">De SEC EDGAR: el historial de reportes y los datos financieros XBRL que presenta toda empresa listada en EE. UU. Son gratuitos y oficiales. Stockr los descarga directamente a su computadora.</span></p>
+      </details>
+      <details>
+        <summary><span data-l="en">Why do I need a key for prices?</span><span data-l="es">¿Por qué necesito una llave para los precios?</span></summary>
+        <p><span data-l="en">The SEC doesn't publish share prices. Financial Modeling Prep, Alpha Vantage and Tiingo all offer free keys; you paste yours in Stockr and it reads prices for you. Everything else works without one.</span>
+           <span data-l="es">La SEC no publica precios de acciones. Financial Modeling Prep, Alpha Vantage y Tiingo ofrecen llaves gratuitas; usted pega la suya en Stockr y Stockr lee los precios. Todo lo demás funciona sin ella.</span></p>
+      </details>
+      <details>
+        <summary><span data-l="en">How do AI summaries work, and what do they cost?</span><span data-l="es">¿Cómo funcionan los resúmenes con IA y cuánto cuestan?</span></summary>
+        <p><span data-l="en">They use your own Claude API key from Anthropic, so you pay Anthropic directly, usually a few cents per annual report. Each summary is saved, so it's only made once.</span>
+           <span data-l="es">Usan su propia llave de la API de Claude de Anthropic, así que usted le paga directamente a Anthropic, normalmente unos centavos por reporte anual. Cada resumen se guarda, así que se hace una sola vez.</span></p>
+      </details>
+      <details>
+        <summary><span data-l="en">Which companies does it cover?</span><span data-l="es">¿Qué empresas cubre?</span></summary>
+        <p><span data-l="en">Companies that file financial statements with the SEC in XBRL, from about 2009 on: US-listed companies, and foreign filers that report in US GAAP or IFRS. Banks are handled with bank-specific lines and ratios.</span>
+           <span data-l="es">Las empresas que presentan estados financieros a la SEC en XBRL, desde aproximadamente 2009: empresas listadas en EE. UU. y emisores extranjeros que reportan en US GAAP o IFRS. Los bancos tienen partidas y razones propias.</span></p>
+      </details>
+      <details>
+        <summary><span data-l="en">Is my data private?</span><span data-l="es">¿Mis datos son privados?</span></summary>
+        <p><span data-l="en">Yes. Your watchlist, notes, keys and settings stay on your computer. Stockr has no analytics or tracking. See the privacy notice below.</span>
+           <span data-l="es">Sí. Sus favoritas, notas, llaves y configuración se quedan en su computadora. Stockr no tiene analítica ni rastreo. Vea el aviso de privacidad abajo.</span></p>
+      </details>
+      <details>
+        <summary><span data-l="en">How do updates work?</span><span data-l="es">¿Cómo funcionan las actualizaciones?</span></summary>
+        <p><span data-l="en">Stockr checks once a day. When there's a new version, a button appears at the bottom of the window; it downloads, installs and reopens Stockr, keeping your settings.</span>
+           <span data-l="es">Stockr revisa una vez al día. Cuando hay una versión nueva aparece un botón en la parte inferior de la ventana; la descarga, la instala y abre Stockr de nuevo, conservando su configuración.</span></p>
+      </details>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap row">
+    <span>© 2026 Stockr</span>
+    <span><span data-l="en">Not investment advice.</span><span data-l="es">No es asesoría de inversión.</span></span>
+    <div class="legal">
+      <a href="legal/EULA.txt" data-href-es="legal/EULA_es.txt"><span data-l="en">License agreement</span><span data-l="es">Contrato de licencia</span></a>
+      <a href="legal/PRIVACY.txt" data-href-es="legal/PRIVACY_es.txt"><span data-l="en">Privacy</span><span data-l="es">Privacidad</span></a>
+      <a href="legal/DISCLAIMER.txt" data-href-es="legal/DISCLAIMER_es.txt"><span data-l="en">Disclaimer</span><span data-l="es">Descargo</span></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var heat = { r: "var(--rojo)", y: "var(--amarillo)", g: "var(--verde)" };
+    var html = document.documentElement, btn = document.getElementById("lang");
+    function setLang(l) {
+      html.lang = l;
+      btn.textContent = l === "es" ? "EN" : "ES";
+      document.querySelectorAll("[data-href-es]").forEach(function (a) {
+        if (!a.dataset.hrefEn) a.dataset.hrefEn = a.getAttribute("href");
+        a.setAttribute("href", l === "es" ? a.dataset.hrefEs : a.dataset.hrefEn);
+      });
+      document.title = l === "es" ? "Stockr · análisis de empresas con reportes de la SEC" : "Stockr · company analysis from SEC filings";
+      try { localStorage.setItem("stockr-lang", l); } catch (e) {}
+    }
+    var saved = null;
+    try { saved = localStorage.getItem("stockr-lang"); } catch (e) {}
+    setLang(saved || ((navigator.language || "en").toLowerCase().indexOf("es") === 0 ? "es" : "en"));
+    btn.addEventListener("click", function () { setLang(html.lang === "es" ? "en" : "es"); });
+    // one orchestrated moment: the ratio history colors in, newest year last
+    var cells = Array.prototype.slice.call(document.querySelectorAll(".ledger td.h"));
+    var still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    cells.forEach(function (td) {
+      var col = Array.prototype.indexOf.call(td.parentNode.children, td);
+      var paint = function () { td.style.backgroundColor = heat[td.dataset.c]; };
+      if (still) paint(); else setTimeout(paint, 300 + (6 - col) * 180);
+    });
+  })();
+</script>
+</body>
+</html>

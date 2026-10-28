@@ -1,0 +1,41 @@
+﻿STOCKR END USER LICENSE AGREEMENT
+Version 1.0 · effective 2026-11-01
+
+DRAFT: have a lawyer review this text before selling Stockr. Replace the items in [brackets].
+
+1. Who this agreement is with
+This agreement is between you and [Publisher legal name] ("we"), the publisher of Stockr. By installing or using Stockr you accept it. If you don't accept it, don't install or use Stockr.
+
+2. License
+We grant you a personal, non-exclusive, non-transferable license to install and use Stockr on computers you own or control:
+- Trial: full features for 14 days from the first run.
+- Free version: after the trial, with the limits shown in the app.
+- Pro: the features of your plan, for the term of your license key (perpetual or until the expiry date in the key). One license is for one person; you may install it on up to 3 of your own computers.
+You may not copy, resell, rent, share license keys, or reverse-engineer Stockr, except where the law allows it regardless of this agreement.
+
+3. Data and third-party services
+Stockr reads public data from the U.S. Securities and Exchange Commission (SEC EDGAR). Optional features use services you choose and pay for directly with your own keys (price providers such as Financial Modeling Prep, Alpha Vantage or Tiingo, and Anthropic's Claude API). Your use of those services is governed by their terms. We don't control those services or their data and aren't responsible for them.
+
+4. Not investment advice
+Stockr is an analysis tool. Its figures, ratios, scores, valuations and AI-generated text may contain errors or omissions and are not investment, credit, tax, accounting or legal advice. You are solely responsible for your decisions. See the Disclaimer.
+
+5. Updates
+Stockr may check for and install updates. Updates are covered by this agreement unless they come with new terms.
+
+6. Payments and refunds
+Prices, payment and refund terms are those shown at purchase on [website]. [Refund policy, e.g. full refund within 14 days of purchase.]
+
+7. No warranty
+Stockr is provided "as is" and "as available", without warranties of any kind, express or implied, including merchantability, fitness for a particular purpose, accuracy and non-infringement, to the fullest extent the law allows.
+
+8. Limitation of liability
+To the fullest extent the law allows, we are not liable for any indirect, incidental, special, consequential or punitive damages, or for lost profits, trading or investment losses, or lost data. Our total liability for any claim is limited to the amount you paid for Stockr in the 12 months before the claim.
+
+9. Termination
+This license ends automatically if you breach this agreement. You may end it at any time by uninstalling Stockr.
+
+10. Governing law
+This agreement is governed by the laws of [country], and its courts have jurisdiction, unless the law of your country requires otherwise.
+
+11. Contact
+[Publisher legal name] · [address] · support email shown in Stockr (Help > Send feedback).

@@ -1,0 +1,21 @@
+﻿STOCKR PRIVACY NOTICE
+Version 1.0 · effective 2026-11-01 · DRAFT for legal review
+
+What stays on your computer
+Your settings, watchlist, notes, workspaces, custom ratios, downloaded data, API keys and license key are stored only on your computer (in %APPDATA%\Stockr). We don't have access to them.
+
+What Stockr sends, and to whom
+- SEC EDGAR (sec.gov): the name and email you enter in Settings, as the SEC requires from every user of its data, with each request for public filings.
+- Your price provider (if you set one up): the ticker symbols you look at and your key.
+- Anthropic's Claude API (only when you ask for an AI summary): the text of the company's annual report sections and your key.
+- Update check: Stockr reads a public file on GitHub (github.com / githubusercontent.com) to see whether a new version exists; GitHub may log the request like any web request.
+Those services handle the data under their own privacy policies.
+
+What we receive
+Nothing automatically. Stockr has no analytics or tracking. If you send us feedback, we receive what you choose to send (your message and, if you attach it, the feedback file with the app log and settings without your keys), and use it only to answer you and fix problems.
+
+Purchases
+When you buy a license, the store records your name, email and payment details to issue the license, under the store's privacy policy. We keep your name, email and license record to support you.
+
+Contact
+[Publisher legal name] · support email shown in Stockr (Help > Send feedback).

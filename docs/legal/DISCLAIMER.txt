@@ -1,0 +1,10 @@
+﻿STOCKR DISCLAIMER
+
+Stockr consolidates figures that companies report to the U.S. SEC in XBRL and computes ratios, scores (Altman, Piotroski, Beneish, synthetic ratings), valuations and, if you choose, AI-generated summaries.
+
+- Data can be wrong or incomplete: companies tag figures differently, restate them, or leave gaps; Stockr's consolidation rules and data checks reduce but don't remove these problems. Always check important figures against the original filing (Stockr links to every one).
+- Share prices come from the provider you choose; their accuracy is that provider's responsibility.
+- Credit and fraud-risk models are statistical screens, not ratings or findings. A low score is not proof of distress or manipulation, and a high score is not a guarantee.
+- A DCF is only as good as its assumptions.
+- AI summaries can misread or omit information. Read the filing before relying on them.
+- Nothing in Stockr is investment, credit, tax, accounting or legal advice, or an offer or recommendation to buy or sell any security. Past results don't predict future results.

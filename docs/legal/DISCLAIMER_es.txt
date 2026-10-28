@@ -1,0 +1,10 @@
+﻿DESCARGO DE RESPONSABILIDAD DE STOCKR
+
+Stockr consolida las cifras que las empresas reportan a la SEC de EE. UU. en XBRL y calcula razones, puntajes (Altman, Piotroski, Beneish, calificaciones sintéticas), valoraciones y, si usted lo decide, resúmenes generados con IA.
+
+- Los datos pueden estar errados o incompletos: las empresas etiquetan las cifras de forma distinta, las reexpresan o dejan huecos; las reglas de consolidación y las revisiones de datos de Stockr reducen estos problemas pero no los eliminan. Verifique siempre las cifras importantes contra el documento original (Stockr enlaza cada uno).
+- Los precios de las acciones vienen del proveedor que usted elige; su exactitud es responsabilidad de ese proveedor.
+- Los modelos de crédito y de riesgo de fraude son filtros estadísticos, no calificaciones ni hallazgos. Un puntaje bajo no prueba dificultades ni manipulación, y uno alto no es garantía.
+- Un DCF vale lo que valen sus supuestos.
+- Los resúmenes con IA pueden malinterpretar u omitir información. Lea el documento antes de basarse en ellos.
+- Nada en Stockr es asesoría de inversión, crédito, impuestos, contabilidad ni legal, ni una oferta o recomendación de comprar o vender valores. Los resultados pasados no predicen resultados futuros.

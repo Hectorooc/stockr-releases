@@ -1,0 +1,21 @@
+﻿AVISO DE PRIVACIDAD DE STOCKR
+Versión 1.0 · vigente desde 2026-11-01 · BORRADOR para revisión legal
+
+Lo que se queda en su computadora
+Su configuración, favoritas, notas, espacios de trabajo, razones propias, datos descargados, llaves de API y llave de licencia se guardan solo en su computadora (en %APPDATA%\Stockr). No tenemos acceso a ellos.
+
+Lo que Stockr envía, y a quién
+- SEC EDGAR (sec.gov): el nombre y correo que usted escribe en Configuración, como la SEC exige a todo usuario de sus datos, con cada solicitud de documentos públicos.
+- Su proveedor de precios (si configura uno): los tickers que consulta y su llave.
+- La API de Claude de Anthropic (solo cuando pide un resumen con IA): el texto de secciones del reporte anual de la empresa y su llave.
+- Búsqueda de actualizaciones: Stockr lee un archivo público en GitHub (github.com / githubusercontent.com) para saber si hay una versión nueva; GitHub puede registrar la solicitud como cualquier solicitud web.
+Esos servicios manejan los datos según sus propias políticas de privacidad.
+
+Lo que recibimos
+Nada de forma automática. Stockr no tiene analítica ni rastreo. Si nos envía comentarios, recibimos lo que usted decida enviar (su mensaje y, si lo adjunta, el archivo de comentarios con el registro de la aplicación y la configuración sin sus llaves), y lo usamos solo para responderle y corregir problemas.
+
+Compras
+Cuando compra una licencia, la tienda registra su nombre, correo y datos de pago para emitir la licencia, según la política de privacidad de la tienda. Conservamos su nombre, correo y registro de licencia para darle soporte.
+
+Contacto
+[Nombre legal del editor] · el correo de soporte aparece en Stockr (Ayuda > Enviar comentarios).

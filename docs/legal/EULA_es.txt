@@ -1,0 +1,41 @@
+﻿CONTRATO DE LICENCIA DE USUARIO FINAL DE STOCKR
+Versión 1.0 · vigente desde 2026-11-01
+
+BORRADOR: haga revisar este texto por un abogado antes de vender Stockr. Reemplace lo que está entre [corchetes].
+
+1. Partes
+Este contrato es entre usted y [Nombre legal del editor] ("nosotros"), editor de Stockr. Al instalar o usar Stockr usted lo acepta. Si no lo acepta, no instale ni use Stockr.
+
+2. Licencia
+Le otorgamos una licencia personal, no exclusiva e intransferible para instalar y usar Stockr en computadoras de su propiedad o bajo su control:
+- Prueba: todas las funciones durante 14 días desde el primer uso.
+- Versión gratuita: después de la prueba, con los límites que muestra la aplicación.
+- Pro: las funciones de su plan, durante la vigencia de su llave de licencia (perpetua o hasta la fecha de vencimiento indicada en la llave). Una licencia es para una persona; puede instalarla en hasta 3 computadoras propias.
+No puede copiar, revender, alquilar, compartir llaves de licencia ni hacer ingeniería inversa de Stockr, salvo donde la ley lo permita independientemente de este contrato.
+
+3. Datos y servicios de terceros
+Stockr lee datos públicos de la Comisión de Bolsa y Valores de EE. UU. (SEC EDGAR). Algunas funciones opcionales usan servicios que usted elige y paga directamente con sus propias llaves (proveedores de precios como Financial Modeling Prep, Alpha Vantage o Tiingo, y la API de Claude de Anthropic). Su uso de esos servicios se rige por sus propios términos. No controlamos esos servicios ni sus datos y no somos responsables por ellos.
+
+4. No es asesoría de inversión
+Stockr es una herramienta de análisis. Sus cifras, razones, puntajes, valoraciones y textos generados con IA pueden contener errores u omisiones y no constituyen asesoría de inversión, crédito, impuestos, contabilidad ni legal. Usted es el único responsable de sus decisiones. Vea el Descargo de responsabilidad.
+
+5. Actualizaciones
+Stockr puede buscar e instalar actualizaciones. Las actualizaciones se rigen por este contrato salvo que vengan con nuevos términos.
+
+6. Pagos y reembolsos
+Los precios, pagos y condiciones de reembolso son los que se muestran al comprar en [sitio web]. [Política de reembolso, p. ej. reembolso total dentro de 14 días desde la compra.]
+
+7. Sin garantía
+Stockr se entrega "tal cual" y "según disponibilidad", sin garantías de ningún tipo, expresas o implícitas, incluidas las de comerciabilidad, idoneidad para un fin determinado, exactitud y no infracción, en la máxima medida que permita la ley.
+
+8. Limitación de responsabilidad
+En la máxima medida que permita la ley, no somos responsables por daños indirectos, incidentales, especiales, consecuentes o punitivos, ni por pérdida de utilidades, pérdidas de inversión o de trading, ni pérdida de datos. Nuestra responsabilidad total por cualquier reclamo se limita a lo que usted pagó por Stockr en los 12 meses previos al reclamo.
+
+9. Terminación
+Esta licencia termina automáticamente si usted incumple este contrato. Puede terminarla en cualquier momento desinstalando Stockr.
+
+10. Ley aplicable
+Este contrato se rige por las leyes de [país], y sus tribunales son competentes, salvo que la ley de su país disponga otra cosa.
+
+11. Contacto
+[Nombre legal del editor] · [dirección] · el correo de soporte aparece en Stockr (Ayuda > Enviar comentarios).
