@@ -14,7 +14,7 @@ Le otorgamos una licencia personal, no exclusiva e intransferible para instalar 
 No puede copiar, revender, alquilar, compartir llaves de licencia ni hacer ingeniería inversa de Stockr, salvo donde la ley lo permita independientemente de este contrato.
 
 3. Datos y servicios de terceros
-Stockr lee datos públicos de la Comisión de Bolsa y Valores de EE. UU. (SEC EDGAR). Algunas funciones opcionales usan servicios que usted elige y paga directamente con sus propias llaves (proveedores de precios como Financial Modeling Prep, Alpha Vantage o Tiingo, y la API de Claude de Anthropic). Su uso de esos servicios se rige por sus propios términos. No controlamos esos servicios ni sus datos y no somos responsables por ellos.
+Stockr lee datos públicos de la Comisión de Bolsa y Valores de EE. UU. (SEC EDGAR). Algunas funciones opcionales usan servicios que usted elige y paga directamente con sus propias llaves (proveedores de precios como Financial Modeling Prep, Alpha Vantage o Tiingo, y servicios de IA como la API de Claude de Anthropic, la API de OpenAI o la API de Gemini de Google). Su uso de esos servicios se rige por sus propios términos. No controlamos esos servicios ni sus datos y no somos responsables por ellos.
 
 4. No es asesoría de inversión
 Stockr es una herramienta de análisis. Sus cifras, razones, puntajes, valoraciones y textos generados con IA pueden contener errores u omisiones y no constituyen asesoría de inversión, crédito, impuestos, contabilidad ni legal. Usted es el único responsable de sus decisiones. Vea el Descargo de responsabilidad.

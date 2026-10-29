@@ -7,7 +7,7 @@ Su configuración, favoritas, notas, espacios de trabajo, razones propias, datos
 Lo que Stockr envía, y a quién
 - SEC EDGAR (sec.gov): el nombre y correo que usted escribe en Configuración, como la SEC exige a todo usuario de sus datos, con cada solicitud de documentos públicos.
 - Su proveedor de precios (si configura uno): los tickers que consulta y su llave.
-- La API de Claude de Anthropic (solo cuando pide un resumen con IA): el texto de secciones del reporte anual de la empresa y su llave.
+- El proveedor de IA que elija en Configuración de IA (Claude de Anthropic, OpenAI o Gemini de Google), solo cuando pide un resumen con IA: el texto de secciones del reporte anual de la empresa y su llave para ese proveedor.
 - Búsqueda de actualizaciones: Stockr lee un archivo público en GitHub (github.com / githubusercontent.com) para saber si hay una versión nueva; GitHub puede registrar la solicitud como cualquier solicitud web.
 Esos servicios manejan los datos según sus propias políticas de privacidad.
 

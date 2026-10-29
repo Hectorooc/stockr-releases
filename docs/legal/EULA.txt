@@ -14,7 +14,7 @@ We grant you a personal, non-exclusive, non-transferable license to install and 
 You may not copy, resell, rent, share license keys, or reverse-engineer Stockr, except where the law allows it regardless of this agreement.
 
 3. Data and third-party services
-Stockr reads public data from the U.S. Securities and Exchange Commission (SEC EDGAR). Optional features use services you choose and pay for directly with your own keys (price providers such as Financial Modeling Prep, Alpha Vantage or Tiingo, and Anthropic's Claude API). Your use of those services is governed by their terms. We don't control those services or their data and aren't responsible for them.
+Stockr reads public data from the U.S. Securities and Exchange Commission (SEC EDGAR). Optional features use services you choose and pay for directly with your own keys (price providers such as Financial Modeling Prep, Alpha Vantage or Tiingo, and AI services such as Anthropic's Claude API, OpenAI's API or Google's Gemini API). Your use of those services is governed by their terms. We don't control those services or their data and aren't responsible for them.
 
 4. Not investment advice
 Stockr is an analysis tool. Its figures, ratios, scores, valuations and AI-generated text may contain errors or omissions and are not investment, credit, tax, accounting or legal advice. You are solely responsible for your decisions. See the Disclaimer.
